@@ -1,6 +1,7 @@
 package com.company.cafemanager.entity.cafe;
 
 import com.company.cafemanager.entity.Deletable;
+import com.company.cafemanager.entity.Identified;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,13 +13,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "product_in_order")
 @AssociationOverrides({
-    @AssociationOverride(name = "primaryKey.product", joinColumns = @JoinColumn(name = "product_id")),
-    @AssociationOverride(name = "primaryKey.order", joinColumns = @JoinColumn(name = "order_id"))
+    @AssociationOverride(name = "id.product", joinColumns = @JoinColumn(name = "product_id")),
+    @AssociationOverride(name = "id.order", joinColumns = @JoinColumn(name = "order_id"))
 })
-public class ProductInOrder implements Deletable {
+public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
 
     @EmbeddedId
-    private ProductInOrderId primaryKey = new ProductInOrderId();
+    private ProductInOrderId id = new ProductInOrderId();
 
     @NotNull
     @Column(name = "amount", nullable = false)
@@ -39,37 +40,38 @@ public class ProductInOrder implements Deletable {
     }
 
     public ProductInOrder(
-        ProductInOrderId primaryKey,
+        ProductInOrderId id,
         int amount
     ) {
-        this.primaryKey = primaryKey;
+        this.id = id;
         this.amount = amount;
     }
 
     @Transient
     public Product getProduct() {
-        return primaryKey.getProduct();
+        return id.getProduct();
     }
 
     public void setProduct(Product product) {
-        primaryKey.setProduct(product);
+        id.setProduct(product);
     }
 
     @Transient
     public Order getOrder() {
-        return primaryKey.getOrder();
+        return id.getOrder();
     }
 
     public void setOrder(Order order) {
-        primaryKey.setOrder(order);
+        id.setOrder(order);
     }
 
-    public ProductInOrderId getPrimaryKey() {
-        return primaryKey;
+    @Override
+    public ProductInOrderId getId() {
+        return id;
     }
 
-    public void setPrimaryKey(ProductInOrderId primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setId(ProductInOrderId id) {
+        this.id = id;
     }
 
     public int getAmount() {
@@ -109,11 +111,12 @@ public class ProductInOrder implements Deletable {
     @Override
     public String toString() {
         return "ProductInOrder{" +
-            "primaryKey=" + primaryKey +
+            "primaryKey=" + id +
             ", amount=" + amount +
             ", created=" + created +
             ", updated=" + updated +
             ", deleted=" + deleted +
             '}';
     }
+
 }
