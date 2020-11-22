@@ -45,7 +45,7 @@ public class Order implements Deletable, Identified<UUID> {
     @Column(name = "deleted")
     private LocalDateTime deleted;
 
-    @OneToMany(mappedBy = "primaryKey.order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL)
     private List<ProductInOrder> productInOrders = new ArrayList<>();
 
     public Order() {
