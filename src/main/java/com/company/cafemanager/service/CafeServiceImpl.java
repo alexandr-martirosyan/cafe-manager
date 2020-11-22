@@ -1,40 +1,67 @@
 package com.company.cafemanager.service;
 
+import com.company.cafemanager.dao.Dao;
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public class ServiceImpl<T extends Identified<I> & Deletable, I extends Serializable> implements Service<T, I> {
-    @Override
-    public Optional<T> get(I id) {
-        return Optional.empty();
+public abstract class CafeServiceImpl<T extends Identified<I> & Deletable, I extends Serializable> implements CafeService<T, I> {
+    private final Dao<T, I> dao;
+    protected final Class<T> clazz;
+
+    public CafeServiceImpl(final Dao<T, I> dao, final Class<T> clazz) {
+        this.dao = dao;
+        this.clazz = clazz;
+    }
+
+    protected Optional<T> checkOptionalValue(Optional<T> t, String value) {
+        String className = clazz.getSimpleName();
+        if (t.isEmpty()) {
+            throw new NullPointerException("there is no " + className + "with this " + value + "!");
+        }
+        if (t.get().getDeleted() != null) {
+            throw new IllegalArgumentException(className + " is deleted");
+        }
+        return t;
     }
 
     @Override
+    @Transactional
+    public T get(final I id) {
+        return checkOptionalValue(dao.get(id), "id").get();
+    }
+
+    @Override
+    @Transactional
     public List<T> getAll() {
-        return null;
+        return dao.getAll();
     }
 
     @Override
-    public List<T> getAllFromRange(int startIndex, int count) {
-        return null;
+    @Transactional
+    public List<T> getAllFromRange(final int startIndex, final int count) {
+        return dao.getAllFromRange(startIndex, count);
     }
 
     @Override
-    public T save(T t) {
-        return null;
+    @Transactional
+    public T save(final T t) {
+        return dao.save(t);
     }
 
     @Override
-    public T update(T t) {
-        return null;
+    @Transactional
+    public T update(final T t) {
+        return dao.update(t);
     }
 
     @Override
-    public T delete(T t) {
-        return null;
+    @Transactional
+    public T delete(final T t) {
+        return dao.delete(t);
     }
 }

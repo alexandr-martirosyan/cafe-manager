@@ -1,6 +1,7 @@
-package com.company.cafemanager.service;
+package com.company.cafemanager.service.user;
 
 import com.company.cafemanager.entity.user.User;
+import com.company.cafemanager.service.CafeService;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import java.util.UUID;
  * @param <T> Type of entity
  */
 public interface UserService<T extends User> extends CafeService<T, UUID> {
-    Optional<T> getByUsername(String username);
+    T getByUsername(final String username);
 
-    Optional<T> getByEmail(String email);
+    T getByEmail(final String email);
 }

@@ -12,8 +12,8 @@ import java.util.Optional;
  * @param <T> Type of Entity
  * @param <I> Id type
  */
-public interface Service<T extends Identified<I> & Deletable, I extends Serializable> {
-    Optional<T> get(final I id);
+public interface CafeService<T extends Identified<I> & Deletable, I extends Serializable> {
+    T get(final I id);
 
     List<T> getAll();
 
