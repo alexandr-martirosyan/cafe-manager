@@ -39,20 +39,27 @@ public class DaoImpl<T extends Identified<I> & Deletable, I extends Serializable
         return Optional.ofNullable(session.get(clazz, id));
     }
 
-    @Override
-    public List<T> getAll() {
+    private Query<T> getAllQuery() {
         // get the current Hibernate session
         Session session = entityManager.unwrap(Session.class);
         // get all not deleted objects
         String className = clazz.getSimpleName();
         String hql = String.format("from %s where %s.deleted is null", className, className);
-        Query<T> query = session.createQuery(hql);
+        return (Query<T>) session.createQuery(hql);
+    }
+
+    @Override
+    public List<T> getAll() {
+        Query<T> query = getAllQuery();
         return query.list();
     }
 
     @Override
     public List<T> getAllFromRange(int startIndex, int count) {
-        return null;
+        Query<T> query = getAllQuery();
+        query.setFirstResult(startIndex);
+        query.setMaxResults(count);
+        return query.list();
     }
 
     @Override
