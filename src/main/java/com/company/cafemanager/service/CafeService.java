@@ -1,4 +1,4 @@
-package com.company.cafemanager.dao;
+package com.company.cafemanager.service;
 
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Data access interface
- * @param <T> Type of entity
+ * Service interface
+ * @param <T> Type of Entity
  * @param <I> Id type
  */
-public interface Dao<T extends Identified<I> & Deletable, I extends Serializable> {
+public interface Service<T extends Identified<I> & Deletable, I extends Serializable> {
     Optional<T> get(final I id);
 
     List<T> getAll();
