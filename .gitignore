@@ -12,3 +12,8 @@
 #### .mvn ###
 **/.mvn
 HELP.md
+
+#### VSCode and Eclipse ###
+.classpath
+.project
+**/.settings
