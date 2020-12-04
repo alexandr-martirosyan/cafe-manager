@@ -28,7 +28,7 @@ public class Table implements Deletable, Identified<UUID> {
     @JoinColumn(name = "waiter_id")
     private Waiter waiter;
 
-    @OneToMany(mappedBy = "table")
+    @OneToMany(mappedBy = "table", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
     @NotNull

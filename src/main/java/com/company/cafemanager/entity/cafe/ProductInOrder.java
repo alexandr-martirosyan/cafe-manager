@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Table;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -22,8 +23,14 @@ public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
     private ProductInOrderId id = new ProductInOrderId();
 
     @NotNull
+    @Min(1)
     @Column(name = "amount", nullable = false)
     private int amount;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 9, nullable = false)
+    private ProductInOrderStatus status;
 
     @CreationTimestamp
     @Column(name = "created", updatable = false, nullable = false)
@@ -40,11 +47,20 @@ public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
     }
 
     public ProductInOrder(
+        ProductInOrderId id
+    ) {
+        this.id = id;
+        this.amount = 1;
+        this.status = ProductInOrderStatus.ACTIVE;
+    }
+
+    public ProductInOrder(
         ProductInOrderId id,
         int amount
     ) {
         this.id = id;
         this.amount = amount;
+        this.status = ProductInOrderStatus.ACTIVE;
     }
 
     @Transient
@@ -80,6 +96,14 @@ public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public ProductInOrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProductInOrderStatus status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreated() {

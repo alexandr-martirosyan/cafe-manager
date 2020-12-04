@@ -56,7 +56,7 @@ public class Product implements Deletable, Identified<UUID> {
     @Column(name = "deleted")
     private LocalDateTime deleted;
 
-    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductInOrder> productInOrders = new ArrayList<>();
 
     public Product() {

@@ -4,15 +4,17 @@ package com.company.cafemanager.entity.user;
 import com.company.cafemanager.entity.cafe.Table;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @javax.persistence.Table(name = "waiter")
 public class Waiter extends User {
 
-    @OneToMany(mappedBy = "waiter")
+    @OneToMany(mappedBy = "waiter", fetch = FetchType.LAZY)
     private List<Table> tables = new ArrayList<>();
 
     public Waiter() {
@@ -24,26 +26,8 @@ public class Waiter extends User {
         String username,
         String password,
         String email,
-        Gender gender
-    ) {
-        super(
-            firstName,
-            lastName,
-            username,
-            password,
-            email,
-            gender
-        );
-    }
-
-    public Waiter(
-        String firstName,
-        String lastName,
-        String username,
-        String password,
-        String email,
         Gender gender,
-        List<Table> tables
+        Set<Role> roles
     ) {
         super(
             firstName,
@@ -51,9 +35,9 @@ public class Waiter extends User {
             username,
             password,
             email,
-            gender
+            gender,
+            roles
         );
-        this.tables = tables;
     }
 
     public List<Table> getTables() {
@@ -74,9 +58,11 @@ public class Waiter extends User {
             ", password='" + password + '\'' +
             ", email='" + email + '\'' +
             ", gender=" + gender +
+            ", roles=" + roles +
             ", created=" + created +
             ", updated=" + updated +
             ", deleted=" + deleted +
+            ", tables=" + tables +
             '}';
     }
 }

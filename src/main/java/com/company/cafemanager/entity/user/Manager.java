@@ -3,6 +3,7 @@ package com.company.cafemanager.entity.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "manager")
@@ -16,7 +17,8 @@ public class Manager extends User {
         String username,
         String password,
         String email,
-        Gender gender
+        Gender gender,
+        Set<Role> roles
     ) {
         super(
             firstName,
@@ -24,7 +26,8 @@ public class Manager extends User {
             username,
             password,
             email,
-            gender
+            gender,
+            roles
         );
     }
 
@@ -38,6 +41,7 @@ public class Manager extends User {
             ", password='" + password + '\'' +
             ", email='" + email + '\'' +
             ", gender=" + gender +
+            ", roles=" + roles +
             ", created=" + created +
             ", updated=" + updated +
             ", deleted=" + deleted +
