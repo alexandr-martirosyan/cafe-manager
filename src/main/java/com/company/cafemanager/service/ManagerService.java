@@ -19,8 +19,6 @@ public interface ManagerService {
 
     Manager updateManager(Manager manager);
 
-    Manager deleteManager(Manager manager);
-
     Manager deleteManager(UUID managerId);
 
     List<Waiter> getAllWaiters();
@@ -32,8 +30,6 @@ public interface ManagerService {
     Waiter addWaiter(Waiter waiter);
 
     Waiter updateWaiter(Waiter waiter);
-
-    Waiter deleteWaiter(Waiter waiter);
 
     Waiter deleteWaiter(UUID waiterId);
 
@@ -49,8 +45,6 @@ public interface ManagerService {
 
     Table updateTable(Table table);
 
-    Table deleteTable(Table table);
-
     Table deleteTable(UUID tableId);
 
     List<Product> getAllProducts();
@@ -62,8 +56,6 @@ public interface ManagerService {
     Product addProduct(Product product);
 
     Product updateProduct(Product product);
-
-    Product deleteProduct(Product product);
 
     Product deleteProduct(UUID productId);
 }

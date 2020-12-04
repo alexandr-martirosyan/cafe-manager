@@ -66,14 +66,8 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     @Transactional
-    public Manager deleteManager(Manager manager) {
-        return managerDao.delete(manager);
-    }
-
-    @Override
-    @Transactional
     public Manager deleteManager(UUID managerId) {
-        return deleteManager(getManager(managerId));
+        return managerDao.delete(getManager(managerId));
     }
 
     @Override
@@ -108,14 +102,8 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     @Transactional
-    public Waiter deleteWaiter(Waiter waiter) {
-        return waiterDao.delete(waiter);
-    }
-
-    @Override
-    @Transactional
     public Waiter deleteWaiter(UUID waiterId) {
-        return deleteWaiter(getWaiter(waiterId));
+        return waiterDao.delete(getWaiter(waiterId));
     }
 
     @Override
@@ -155,16 +143,11 @@ public class ManagerServiceImpl implements ManagerService {
         return tableDao.update(table);
     }
 
-    @Override
-    @Transactional
-    public Table deleteTable(Table table) {
-        return tableDao.delete(table);
-    }
 
     @Override
     @Transactional
     public Table deleteTable(UUID tableId) {
-        return deleteTable(getTable(tableId));
+        return tableDao.delete(getTable(tableId));
     }
 
     @Override
@@ -199,13 +182,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     @Transactional
-    public Product deleteProduct(Product product) {
-        return productDao.delete(product);
-    }
-
-    @Override
-    @Transactional
     public Product deleteProduct(UUID productId) {
-        return deleteProduct(getProduct(productId));
+        return productDao.delete(getProduct(productId));
     }
 }
