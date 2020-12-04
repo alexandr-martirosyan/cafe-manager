@@ -1,29 +1,55 @@
 package com.company.cafemanager.entity.user;
 
-public enum Role {
-    MANAGER("manager"), WAITER("waiter");
+import com.company.cafemanager.entity.Identified;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-    private final String displayName;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
-    Role(String type) {
-        this.displayName = type;
+@Entity
+@Table(name = "role")
+public class Role implements Identified<ERole> {
+
+    @Id
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_name", length = 7, nullable = false)
+    ERole roleName;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @JsonIgnore
+    List<User> users;
+
+    public Role() {
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public static Role getEnumByValue(String value) {
-        if (value.equals("manager")) {
-            return Role.MANAGER;
-        } else if (value.equals("waiter")) {
-            return Role.WAITER;
-        }
-        throw new IllegalArgumentException("There is no Enum with this value");
+    public Role(@NotNull final ERole roleName) {
+        this.roleName = roleName;
     }
 
     @Override
-    public String toString() {
-        return displayName;
+    public ERole getId() {
+        return getRoleName();
+    }
+
+    public void setId(ERole roleName) {
+        setRoleName(roleName);
+    }
+
+    public ERole getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(ERole roleName) {
+        this.roleName = roleName;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
