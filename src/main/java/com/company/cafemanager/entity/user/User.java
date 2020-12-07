@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -40,7 +41,7 @@ public abstract class User implements Deletable, Identified<UUID> {
     String lastName;
 
     @Size(min = 8, max = 30)
-    @Column(name = "username", length = 30, updatable = false, nullable = false)
+    @Column(name = "username", length = 30, unique = true, updatable = false, nullable = false)
     String username;
 
     @NotBlank
@@ -49,13 +50,22 @@ public abstract class User implements Deletable, Identified<UUID> {
     String password;
 
     @Email
-    @Column(name = "email", length = 30)
+    @Column(name = "email", unique = true, updatable = false, length = 30)
     String email;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 6, nullable = false)
     Gender gender;
+
+    @NotNull
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "user_role",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "role_name", referencedColumnName = "role_name")}
+    )
+    Set<Role> roles;
 
     @CreationTimestamp
     @Column(name = "created", updatable = false, nullable = false)
@@ -77,7 +87,8 @@ public abstract class User implements Deletable, Identified<UUID> {
         String username,
         String password,
         String email,
-        Gender gender
+        Gender gender,
+        Set<Role> roles
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,6 +96,7 @@ public abstract class User implements Deletable, Identified<UUID> {
         this.password = password;
         this.email = email;
         this.gender = gender;
+        this.roles = roles;
     }
 
     @Override
@@ -144,6 +156,14 @@ public abstract class User implements Deletable, Identified<UUID> {
         this.gender = gender;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public LocalDateTime getCreated() {
         return created;
     }
@@ -168,5 +188,9 @@ public abstract class User implements Deletable, Identified<UUID> {
     @Override
     public void setDeleted(LocalDateTime deleted) {
         this.deleted = deleted;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
     }
 }

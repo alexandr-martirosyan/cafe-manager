@@ -10,9 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @javax.persistence.Table(name = "order")
@@ -45,8 +43,8 @@ public class Order implements Deletable, Identified<UUID> {
     @Column(name = "deleted")
     private LocalDateTime deleted;
 
-    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL)
-    private List<ProductInOrder> productInOrders = new ArrayList<>();
+    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ProductInOrder> productInOrders = new HashSet<>();
 
     public Order() {
     }
@@ -68,11 +66,11 @@ public class Order implements Deletable, Identified<UUID> {
         this.id = id;
     }
 
-    public List<ProductInOrder> getProductInOrders() {
+    public Set<ProductInOrder> getProductInOrders() {
         return productInOrders;
     }
 
-    public void setProductInOrders(List<ProductInOrder> productInOrders) {
+    public void setProductInOrders(Set<ProductInOrder> productInOrders) {
         this.productInOrders = productInOrders;
     }
 
