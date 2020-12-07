@@ -6,7 +6,6 @@ import com.company.cafemanager.dao.cafe.ProductInOrderDaoImpl;
 import com.company.cafemanager.dao.cafe.TableDaoImpl;
 import com.company.cafemanager.dao.user.WaiterDaoImpl;
 import com.company.cafemanager.entity.cafe.*;
-import com.company.cafemanager.entity.user.Waiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,20 +38,8 @@ public class WaiterServiceImpl implements WaiterService {
 
     @Override
     @Transactional
-    public List<Table> seeAssignedTables(Waiter waiter) {
-        return waiterDao.get(waiter.getId()).getTables();
-    }
-
-    @Override
-    @Transactional
-    public List<Table> seeAssignedTables(UUID managerId) {
-        return waiterDao.get(managerId).getTables();
-    }
-
-    @Override
-    @Transactional
-    public Order createOrder(Order order) {
-        return orderDao.save(order);
+    public List<Table> seeAssignedTables(UUID waiterId) {
+        return waiterDao.get(waiterId).getTables();
     }
 
     @Override
@@ -72,12 +59,7 @@ public class WaiterServiceImpl implements WaiterService {
     @Override
     @Transactional
     public Order cancelOrder(UUID orderId) {
-        return cancelOrder(orderDao.get(orderId));
-    }
-
-    @Override
-    @Transactional
-    public Order cancelOrder(Order order) {
+        Order order = orderDao.get(orderId);
         order.setStatus(OrderStatus.CANCELLED);
         return orderDao.delete(order);
     }
@@ -85,12 +67,7 @@ public class WaiterServiceImpl implements WaiterService {
     @Override
     @Transactional
     public Order closeOrder(UUID orderId) {
-        return closeOrder(orderDao.get(orderId));
-    }
-
-    @Override
-    @Transactional
-    public Order closeOrder(Order order) {
+        Order order = orderDao.get(orderId);
         order.setStatus(OrderStatus.CLOSED);
         return orderDao.delete(order);
     }
@@ -158,12 +135,6 @@ public class WaiterServiceImpl implements WaiterService {
     @Transactional
     public ProductInOrder deleteProductInOrder(ProductInOrderId productInOrderId) {
         return productInOrderDao.delete(productInOrderDao.get(productInOrderId));
-    }
-
-    @Override
-    @Transactional
-    public ProductInOrder deleteProductInOrder(ProductInOrder productInOrder) {
-        return deleteProductInOrder(productInOrder.getId());
     }
 
     @Override
