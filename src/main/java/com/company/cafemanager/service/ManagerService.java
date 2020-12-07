@@ -4,6 +4,7 @@ import com.company.cafemanager.entity.cafe.Product;
 import com.company.cafemanager.entity.cafe.Table;
 import com.company.cafemanager.entity.user.Manager;
 import com.company.cafemanager.entity.user.Waiter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,7 +42,7 @@ public interface ManagerService {
 
     Table addTable(Table table);
 
-    Table assignTableToWaiter(Table table, Waiter waiter);
+    Table assignTableToWaiter(UUID tableId, UUID waiterId);
 
     Table updateTable(Table table);
 
