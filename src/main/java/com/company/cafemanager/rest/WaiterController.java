@@ -39,11 +39,6 @@ public class WaiterController {
     }
 
     @PostMapping("/productInOrder")
-    public ProductInOrder createProductInOrder(ProductInOrder productInOrder) {
-        return waiterService.createProductInOrder(productInOrder);
-    }
-
-    @PostMapping("/productInOrder")
     public ProductInOrder createProductInOrder(
         @RequestParam(value = "productId") UUID productId,
         @RequestParam(value = "orderId") UUID orderId,
@@ -84,11 +79,6 @@ public class WaiterController {
         @RequestParam(value = "status") ProductInOrderStatus status
     ) {
         return waiterService.changeProductInOrderStatus(productId, orderId, status);
-    }
-
-    @DeleteMapping("/productInOrder")
-    public ProductInOrder deleteProductInOrder(@RequestBody ProductInOrderId productInOrderId) {
-        return waiterService.deleteProductInOrder(productInOrderId);
     }
 
     @DeleteMapping("/productInOrder")
