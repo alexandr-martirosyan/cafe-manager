@@ -49,6 +49,21 @@ public class Role implements Identified<ERole> {
         return users;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        return this.roleName == role.roleName;
+    }
+
+    @Override
+    public int hashCode() {
+        return roleName.hashCode();
+    }
+
     public void setUsers(List<User> users) {
         this.users = users;
     }

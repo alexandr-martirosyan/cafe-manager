@@ -75,7 +75,7 @@ public class ManagerController {
 
     @PostMapping("/waiter")
     public Waiter addWaiter(@RequestBody Waiter waiter) {
-        waiter.addRole(new Role(ERole.MANAGER));
+            waiter.addRole(new Role(ERole.WAITER));
         return managerService.addWaiter(waiter);
     }
 
@@ -107,8 +107,10 @@ public class ManagerController {
     }
 
     @PostMapping("/table")
-    public Table addTable(@RequestBody Table table) {
-        return managerService.addTable(table);
+    public Table addTable(
+        @RequestParam(value = "capacity") Integer capacity
+    ) {
+        return managerService.addTable(capacity);
     }
 
     @PutMapping("/table")

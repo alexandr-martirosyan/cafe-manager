@@ -2,6 +2,8 @@ package com.company.cafemanager.dao;
 
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
+import com.company.cafemanager.entity.cafe.Table;
+import com.company.cafemanager.entity.user.User;
 import org.hibernate.ObjectDeletedException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -85,8 +87,10 @@ public abstract class DaoImpl<T extends Identified<I> & Deletable, I extends Ser
         }
         // get the current Hibernate Session
         Session session = entityManager.unwrap(Session.class);
-        // clear the session
-        session.clear();
+        if (!(t instanceof Table)) {
+            // clear the session
+            session.clear();
+        }
         // update the object
         session.update(t);
         return t;

@@ -42,6 +42,8 @@ public interface ManagerService {
 
     Table addTable(Table table);
 
+    Table addTable(int capacity);
+
     Table assignTableToWaiter(UUID tableId, UUID waiterId);
 
     Table updateTable(Table table);

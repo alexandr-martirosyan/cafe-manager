@@ -3,6 +3,7 @@ package com.company.cafemanager.entity.cafe;
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
 import com.company.cafemanager.entity.user.Waiter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,6 +26,7 @@ public class Table implements Deletable, Identified<UUID> {
     private UUID id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "waiter_id")
     private Waiter waiter;
 
@@ -47,6 +49,10 @@ public class Table implements Deletable, Identified<UUID> {
     private LocalDateTime deleted;
 
     public Table() {
+    }
+
+    public Table(@NotNull int capacity) {
+        this.capacity = capacity;
     }
 
     public Table(

@@ -132,6 +132,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     @Transactional
+    public Table addTable(int capacity) {
+        return tableDao.save(new Table(capacity));
+    }
+
+    @Override
+    @Transactional
     public Table assignTableToWaiter(UUID tableId, UUID waiterId) {
         Table table = tableDao.get(tableId);
         Waiter waiter = waiterDao.get(waiterId);

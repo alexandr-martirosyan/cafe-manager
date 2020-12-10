@@ -2,6 +2,7 @@ package com.company.cafemanager.entity.user;
 
 
 import com.company.cafemanager.entity.cafe.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import java.util.Set;
 public class Waiter extends User {
 
     @OneToMany(mappedBy = "waiter", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Table> tables = new ArrayList<>();
 
     public Waiter() {
