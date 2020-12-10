@@ -47,14 +47,6 @@ public class WaiterController {
         return waiterService.createProductInOrder(productId, orderId, amount);
     }
 
-    @PutMapping("/productInOrder/changeAmount/{amount}")
-    public ProductInOrder changeProductInOrderAmount(
-        @RequestBody ProductInOrderId productInOrderId,
-        @PathVariable int amount
-    ) {
-        return waiterService.changeProductInOrderAmount(productInOrderId, amount);
-    }
-
     @PutMapping("/productInOrder/changeAmount")
     public ProductInOrder changeProductInOrderAmount(
         @RequestParam(value = "productId") UUID productId,
@@ -62,14 +54,6 @@ public class WaiterController {
         @RequestParam(value = "amount") int amount
     ) {
         return waiterService.changeProductInOrderAmount(productId, orderId, amount);
-    }
-
-    @PutMapping("/productInOrder/changeStatus/{status}")
-    public ProductInOrder changeProductInOrderStatus(
-        @RequestBody ProductInOrderId productInOrderId,
-        @PathVariable ProductInOrderStatus status
-    ) {
-        return waiterService.changeProductInOrderStatus(productInOrderId, status);
     }
 
     @PutMapping("/productInOrder/changeStatus")

@@ -1,5 +1,8 @@
 package com.company.cafemanager.entity.cafe;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -11,6 +14,7 @@ public class ProductInOrderId implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private Order order;
 

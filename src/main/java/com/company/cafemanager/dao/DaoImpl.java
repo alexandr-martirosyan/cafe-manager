@@ -2,6 +2,7 @@ package com.company.cafemanager.dao;
 
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
+import com.company.cafemanager.entity.cafe.ProductInOrder;
 import com.company.cafemanager.entity.cafe.Table;
 import com.company.cafemanager.entity.user.User;
 import org.hibernate.ObjectDeletedException;
@@ -87,7 +88,7 @@ public abstract class DaoImpl<T extends Identified<I> & Deletable, I extends Ser
         }
         // get the current Hibernate Session
         Session session = entityManager.unwrap(Session.class);
-        if (!(t instanceof Table)) {
+        if (!(t instanceof Table || t instanceof ProductInOrder)) {
             // clear the session
             session.clear();
         }

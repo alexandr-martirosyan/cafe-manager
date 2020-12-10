@@ -3,6 +3,7 @@ package com.company.cafemanager.entity.cafe;
 
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -24,6 +25,7 @@ public class Order implements Deletable, Identified<UUID> {
 
     @NotNull
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "table_id", nullable = false)
     private Table table;
 

@@ -2,6 +2,8 @@ package com.company.cafemanager.entity.cafe;
 
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,8 +19,10 @@ import java.time.LocalDateTime;
     @AssociationOverride(name = "id.product", joinColumns = @JoinColumn(name = "product_id")),
     @AssociationOverride(name = "id.order", joinColumns = @JoinColumn(name = "order_id"))
 })
+@JsonIgnoreProperties(value = {"order"})
 public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
 
+    @JsonIgnore
     @EmbeddedId
     private ProductInOrderId id = new ProductInOrderId();
 
