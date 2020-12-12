@@ -23,8 +23,8 @@ public class WaiterController {
         return waiterService.seeAssignedTables(waiterId);
     }
 
-    @PostMapping("/order/createOrder/{tableId}")
-    public Order createOrder(@PathVariable UUID tableId) {
+    @PostMapping("/order/createOrder")
+    public Order createOrder(@RequestParam(value = "tableId") UUID tableId) {
         return waiterService.createOrder(tableId);
     }
 
