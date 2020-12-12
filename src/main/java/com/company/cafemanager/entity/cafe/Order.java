@@ -4,6 +4,7 @@ package com.company.cafemanager.entity.cafe;
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +16,11 @@ import java.util.*;
 
 @Entity
 @javax.persistence.Table(name = "order")
+@JsonIgnoreProperties(value = {
+        "created",
+        "updated",
+        "deleted"
+})
 public class Order implements Deletable, Identified<UUID> {
 
     @Id

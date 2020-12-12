@@ -3,6 +3,7 @@ package com.company.cafemanager.entity.cafe;
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,6 +20,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "product")
+@JsonIgnoreProperties(value = {
+        "created",
+        "updated",
+        "deleted"
+})
 public class Product implements Deletable, Identified<UUID> {
 
     @Id

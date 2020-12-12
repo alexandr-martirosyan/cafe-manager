@@ -2,6 +2,7 @@ package com.company.cafemanager.entity.user;
 
 import com.company.cafemanager.entity.Deletable;
 import com.company.cafemanager.entity.Identified;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -24,6 +25,11 @@ import java.util.UUID;
     }
 )
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIgnoreProperties(value = {
+        "created",
+        "updated",
+        "deleted"
+})
 public abstract class User implements Deletable, Identified<UUID> {
 
     @Id

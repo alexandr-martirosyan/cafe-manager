@@ -19,7 +19,12 @@ import java.time.LocalDateTime;
     @AssociationOverride(name = "id.product", joinColumns = @JoinColumn(name = "product_id")),
     @AssociationOverride(name = "id.order", joinColumns = @JoinColumn(name = "order_id"))
 })
-@JsonIgnoreProperties(value = {"order"})
+@JsonIgnoreProperties(value = {
+        "created",
+        "updated",
+        "deleted",
+        "order"
+})
 public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
 
     @JsonIgnore
