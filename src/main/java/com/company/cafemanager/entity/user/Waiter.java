@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@javax.persistence.Table(name = "waiter")
+@javax.persistence.Table(name = "`waiter`")
 public class Waiter extends User {
 
     @OneToMany(mappedBy = "waiter", fetch = FetchType.LAZY)

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@javax.persistence.Table(name = "table")
+@javax.persistence.Table(name = "`table`")
 @JsonIgnoreProperties(value = {
         "created",
         "updated",
@@ -28,30 +28,30 @@ public class Table implements Deletable, Identified<UUID> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id", updatable = false)
+    @Column(name = "`id`", updatable = false, columnDefinition = "uuid")
     private UUID id;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "waiter_id")
+    @JoinColumn(name = "`waiter_id`")
     private Waiter waiter;
 
     @OneToMany(mappedBy = "table", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
     @NotNull
-    @Column(name = "capacity", nullable = false)
+    @Column(name = "`capacity`", nullable = false)
     private int capacity;
 
     @CreationTimestamp
-    @Column(name = "created", updatable = false, nullable = false)
+    @Column(name = "`created`", updatable = false, nullable = false)
     private LocalDateTime created;
 
     @UpdateTimestamp
-    @Column(name = "updated", nullable = false)
+    @Column(name = "`updated`", nullable = false)
     private LocalDateTime updated;
 
-    @Column(name = "deleted", nullable = true)
+    @Column(name = "`deleted`", nullable = true)
     private LocalDateTime deleted;
 
     public Table() {

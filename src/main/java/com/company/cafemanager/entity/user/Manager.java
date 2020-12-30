@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Table(name = "manager")
+@Table(name = "`manager`")
 public class Manager extends User {
     public Manager() {
     }

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "product")
+@Table(name = "`product`")
 @JsonIgnoreProperties(value = {
         "created",
         "updated",
@@ -30,37 +30,37 @@ public class Product implements Deletable, Identified<UUID> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id", updatable = false)
+    @Column(name = "`id`", updatable = false, columnDefinition = "uuid")
     private UUID id;
 
     @NotBlank
-    @Column(name = "name", length = 30, nullable = false)
+    @Column(name = "`name`", length = 30, nullable = false)
     private String name;
 
     @NotNull
-    @Column(name = "price", precision = 7, scale = 3, nullable = false)
+    @Column(name = "`price`", precision = 7, scale = 3, nullable = false)
     private double price;
 
     @NotNull
-    @Column(name = "weight", precision = 5, scale = 2, nullable = false)
+    @Column(name = "`weight`", precision = 5, scale = 2, nullable = false)
     private double weight;
 
     @NotNull
-    @Column(name = "description", nullable = false)
+    @Column(name = "`description`", nullable = false)
     private String description;
 
-    @Column(name = "cook_duration")
+    @Column(name = "`cook_duration`")
     private Duration cookDuration;
 
     @CreationTimestamp
-    @Column(name = "created", updatable = false, nullable = false)
+    @Column(name = "`created`", updatable = false, nullable = false)
     private LocalDateTime created;
 
     @UpdateTimestamp
-    @Column(name = "updated", nullable = false)
+    @Column(name = "`updated`", nullable = false)
     private LocalDateTime updated;
 
-    @Column(name = "deleted")
+    @Column(name = "`deleted`")
     private LocalDateTime deleted;
 
     @JsonIgnore

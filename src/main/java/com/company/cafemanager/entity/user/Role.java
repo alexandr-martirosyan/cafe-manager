@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "role")
+@Table(name = "`role`")
 public class Role implements Identified<ERole> {
 
     @Id
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_name", length = 7, nullable = false)
+    @Column(name = "`role_name`", length = 7, nullable = false)
     ERole roleName;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)

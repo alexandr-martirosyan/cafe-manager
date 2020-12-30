@@ -18,10 +18,10 @@ import java.util.UUID;
 
 @Entity
 @Table(
-    name = "user",
+    name = "`user`",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username", name = "user_username"),
-        @UniqueConstraint(columnNames = "email", name = "user_email")
+        @UniqueConstraint(columnNames = "`username`", name = "`user_username`"),
+        @UniqueConstraint(columnNames = "`email`", name = "`user_email`")
     }
 )
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -35,53 +35,53 @@ public abstract class User implements Deletable, Identified<UUID> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id", updatable = false)
+    @Column(name = "`id`", updatable = false, columnDefinition = "uuid")
     UUID id;
 
     @NotBlank
-    @Column(name = "first_name", length = 20, nullable = false)
+    @Column(name = "`first_name`", length = 20, nullable = false)
     String firstName;
 
     @NotBlank
-    @Column(name = "last_name", length = 20, nullable = false)
+    @Column(name = "`last_name`", length = 20, nullable = false)
     String lastName;
 
     @Size(min = 8, max = 30)
-    @Column(name = "username", length = 30, unique = true, updatable = false, nullable = false)
+    @Column(name = "`username`", length = 30, unique = true, updatable = false, nullable = false)
     String username;
 
     @NotBlank
     @Size(min = 8, max = 50)
-    @Column(name = "password", length = 50, nullable = false)
+    @Column(name = "`password`", length = 50, nullable = false)
     String password;
 
     @Email
-    @Column(name = "email", unique = true, updatable = false, length = 30)
+    @Column(name = "`email`", unique = true, updatable = false, length = 30)
     String email;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", length = 6, nullable = false)
+    @Column(name = "`gender`", length = 6, nullable = false)
     Gender gender;
 
     @NotNull
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-        name = "user_role",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "role_name", referencedColumnName = "role_name")}
+        name = "`user_role`",
+        joinColumns = {@JoinColumn(name = "`user_id`", referencedColumnName = "`id`")},
+        inverseJoinColumns = {@JoinColumn(name = "`role_name`", referencedColumnName = "`role_name`")}
     )
     Set<Role> roles;
 
     @CreationTimestamp
-    @Column(name = "created", updatable = false, nullable = false)
+    @Column(name = "`created`", updatable = false, nullable = false)
     LocalDateTime created;
 
     @UpdateTimestamp
-    @Column(name = "updated", nullable = false)
+    @Column(name = "`updated`", nullable = false)
     LocalDateTime updated;
 
-    @Column(name = "deleted")
+    @Column(name = "`deleted`")
     LocalDateTime deleted;
 
     protected User() {

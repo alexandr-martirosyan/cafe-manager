@@ -14,10 +14,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "product_in_order")
+@Table(name = "`product_in_order`")
 @AssociationOverrides({
-    @AssociationOverride(name = "id.product", joinColumns = @JoinColumn(name = "product_id")),
-    @AssociationOverride(name = "id.order", joinColumns = @JoinColumn(name = "order_id"))
+    @AssociationOverride(name = "id.product", joinColumns = @JoinColumn(name = "`product_id`")),
+    @AssociationOverride(name = "id.order", joinColumns = @JoinColumn(name = "`order_id`"))
 })
 @JsonIgnoreProperties(value = {
         "created",
@@ -33,23 +33,23 @@ public class ProductInOrder implements Deletable, Identified<ProductInOrderId> {
 
     @NotNull
     @Min(1)
-    @Column(name = "amount", nullable = false)
+    @Column(name = "`amount`", nullable = false)
     private int amount;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 9, nullable = false)
+    @Column(name = "`status`", length = 9, nullable = false)
     private ProductInOrderStatus status;
 
     @CreationTimestamp
-    @Column(name = "created", updatable = false, nullable = false)
+    @Column(name = "`created`", updatable = false, nullable = false)
     private LocalDateTime created;
 
     @UpdateTimestamp
-    @Column(name = "updated", nullable = false)
+    @Column(name = "`updated`", nullable = false)
     private LocalDateTime updated;
 
-    @Column(name = "deleted")
+    @Column(name = "`deleted`")
     private LocalDateTime deleted;
 
     public ProductInOrder() {
